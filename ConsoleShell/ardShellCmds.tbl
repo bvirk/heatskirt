@@ -1,0 +1,19 @@
+autoexec autoexec is called on usb connection\n
+humidity humidity\n
+lsdht22 lsdht22!\n
+lsinput lsinput\n
+oledputs syntax\n  oledputs string [xstart[ystart[scale]]]\n\n  defaults\n  xstart=0\n  ystart=0\n  scale=1\n\n  oled -h\n
+oledascii syntax\n  oledascii [asciicode]\n\nascii code is a multiplum of 32\nwithout startpage means starting at 0\n
+oledview oledview [n[op]] [c[lock]] [a[ds18b20Temp]] [d[ht22Temp]] [t[emp-ncc]]  [r[esistance]] [s[amples]] [h[umidity]]\n\nas much as enabled hardware\n
+out pin value\n
+onewiredetect detects i2c device - disabled\n
+play play start slut\n
+reset reset\n
+showargs syntax\n  showargs [arg [ arg]..]...\n
+showerror syntax\n  showerror\n\n  shows the eeTimers errNr field\n
+seterror syntax\n  seterror filename linenumber\n  seterror [number]\n\n  sets eeTimers errorSorce crc32 and linenumber fields\n
+time syntax\n  time\n  shows full time in epoch -h\n
+taskmaxdelay sets the tasks switch delay\n
+toogleassertenable toogleassertenable\n
+toogledebug toogledebug seconds\n
+tone plays a tone\n
