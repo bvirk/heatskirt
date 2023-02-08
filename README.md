@@ -37,9 +37,9 @@ All executing of written source  happens in a single thread - besides what exist
 
 ## c++ redundance
 
-When a c++ project grows, it redundance begins to bother - every method in both header file and where declaration occures!. In a project where two programs - the terminal and AVR program is connected, is not human to be the controller of cohesion. A prebuild named consoleshelldeploy is done before compiling both AVR and the terminal.
+When a c++ project grows, it redundance begins to bother - every method in both header file and where declaration occures!. In a project where two programs - the terminal and AVR program is connected, is not human to be the controller of cohesion. A prebuild program, named consoleshelldeploy, is executed before compiling for both AVR and the terminal.
 
 
 ## Style
 
-Is C like, it is possible to avoid heap usage.
+Is C like, yes - it is possible to avoid heap usage.
