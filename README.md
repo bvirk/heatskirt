@@ -1,2 +1,6 @@
 # heatskirt
-combined pro miro (ATMEGA32U4) app, terminal program and pre compile c++ files deployment.
+Combined pro miro (ATMEGA32U4) app, terminal program and prebuild c++ files deployment.
+
+and
+
+A this piece of hardware used to turn on a heat element as function of temperature, moisture
