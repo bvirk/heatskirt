@@ -1,0 +1,56 @@
+#!/bin/bash
+# Traced in arduino IDE output
+# baudsvip makes a 1200 baud bust - info got from arduino IDE output
+# The content of avrude.conf may have been made by Arduino uno when selecting board:  'sparkfun pro micro'
+# arduino IDE preferences->Additional Boards Manager Urls contained: https://raw.githubusercontent.com/sparkfun/Arduino_Boards/master/IDE_Board_Manager/package_sparkfun_index.json
+# and https://dl.espressif.com/dl/package_esp32_index.json to try fix som strange behavoir.
+
+avrdude=~/.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude
+avrdudeconf=~/.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf 
+
+function flashWithDude() {
+    #echo flashWithDude $1
+    if [ -f $1 ]; then
+        if [ "${1: -4}" == ".hex" ]; then
+            baudsvip /dev/ttyACM0 1200 500 2000 
+            $avrdude -C$avrdudeconf -v -patmega32u4 -cavr109 -P/dev/ttyACM0 -b57600 -D -Uflash:w:${1}:i
+        else
+            echo not a hex file
+            exit 1
+        fi 
+    else
+        echo file dont exists
+        exit 1
+    fi
+}
+
+if [[ $# == 1 ]]; then 
+    flashWithDude $1
+else
+
+    ardDir=~/.arduino15
+    sketchbook=`grep sketchbook.path $ardDir/preferences.txt`
+    sketchbook=${sketchbook#*=}   # remove prefix ending in "="
+    # info: sketchbook is a folder in some workspace
+    # which has an .vscode/arduino.json
+    # which holds the build dir
+    buildDir=`grep \"output\": $sketchbook/../.vscode/arduino.json`
+    buildDir=${buildDir#*\"output\": \"}
+    buildDir=${buildDir%\",*}
+    buildDir=$sketchbook/../$buildDir
+    cd $buildDir
+    curSketch=`grep \"sketch\": $sketchbook/../.vscode/arduino.json`
+    curSketch=${curSketch#*/}
+    curSketch=${curSketch#*/}
+    curSketch=${curSketch%\",*}
+    hexFile=$curSketch.hex
+    ls -l $hexFile
+    flashWithDude $hexFile
+    #read -p "Flash with $hexFile (y/n)?" choice
+    #case "$choice" in 
+    #y|Y ) flashWithDude $hexFile ;;
+    #n|N ) exit 0;;
+    #* ) exit 0;;
+    #esac
+fi
+
