@@ -1,4 +1,4 @@
-# heatskirt
+# heatskirt hardware
 Combined pro miro (ATMEGA32U4) app, terminal program and prebuild c++ files deployment.
 
 and
@@ -7,11 +7,39 @@ A this piece of hardware used to turn on a heat element as function of temperatu
 ![heatcontroller](https://github.com/bvirk/heatskirt/blob/main/img/heatcontroller.png)
 
 The heatskirt is made of a heating wire embedded in an adhesive at the bottom of the walls, an given a airflow fender.
+
 ![fender](https://github.com/bvirk/heatskirt/blob/main/img/fender.png)
 
 The beauty that gots the job af controlling this, is a 8 Mhtz ATMEGA32U4 in its  mount on a tiny pro micro board in this box.
+
 ![promicro](https://github.com/bvirk/heatskirt/blob/main/img/promicro.png)
 
-Besides USB, the sensors is a DHT22 humidity and temperature sensor and a NTC resistor and a SSD1306 OLED display.
+Besides USB, the sensors is a DHT22 humidity and temperature sensor and a NTC resistor and a SSD1306 OLED display. The power supply delivers 180ma at 5v. the separation to high voltage can be seen where the veroboard is lighter.
+
+# heatskirt software
+
+## terminal
+
+The terminal acts as a shell - commands an their arguments as we know it from a bash shell - history, command completion and editing facilities. No - its is not the tiny 32K that delivers that - the terminal is not that arduino IDE java thing, nor minicom or others - it is of own brew.
+
+The AVR and this speciel terminal is one united thing for development and use. Two main benfits:
+
+- verbosity don't fills flash
+- ease of use
+
+That's the aims - the goals isn't reached yet in this projects.
+
+## source structure
+
+The flow happens in class methods from libraries. heatskirt.ino only contains som initialisation and the loop() there, is only reached on failure, being indicated by a quick flashing led and sound.
+Classes is global instantiated where they are defined and made aware of each other by header files inclusion and the extern statement.
+All executing of written source  happens in a single thread - besides what exists barebone - millis(), serial methods and tone(...).
+
+## c++ redundance
+
+When a c++ project grows, it redundance begins to bother - every method in both header file and where declaration occures!. In a project where two programs - the terminal and AVR program is connected, is not human to be the controller of cohesion. A prebuild named consoleshelldeploy is done before compiling both AVR and the terminal.
 
 
+## Style
+
+Is C like, it is possible to avoid heap usage.
