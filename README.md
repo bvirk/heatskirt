@@ -36,19 +36,25 @@ Heatskirt.ino only contains som initialisation and the loop() there, is only rea
 Classes is global instantiated where they are defined and made aware of each other by header files inclusion and the extern statement.
 All executing of written source happens in a single thread - besides what exists barebone - millis(), serial methods and tone(...).
 
-## c++ redundance
+## C++ redundance
 
-When a c++ project grows, it redundance begins to be bothersome - every method in both header file and where declaration occures, and, for some parts, in sync for both terminal and AVR program. The increasing dialog with the compiler, which the role of being the human controller of cohesion raises, becomes boring and silly time consuming. A prebuild program, named consoleshelldeploy, is executed before compiling for both AVR and the terminal.
+When a C++ project grows, its redundance begins to be bothersome - every method in both header file and where declaration occures, and, for some parts, in sync for both terminal and AVR program. The increasing dialog with the compiler, which the role of being the human controller of cohesion raises, becomes boring and silly time consuming. A prebuild program, named consoleshelldeploy, is executed before compiling for both AVR and the terminal.
 
 
 ## Style
 
 Are classes a good thing?
-Yes - on a 2k ram device - if they avoid using heap. Local and global storage for data! It becomes C stylish and with use of PROGMEM for strings. An intersting challenge, compareded to 'normal computers' - because you cant't just return any thing from a function.
+
+Yes - on a 2k ram device - if they avoid using heap. Local and global storage for data permitted!
+
+It becomes C stylish and with use of PROGMEM for strings. An intersting challenge, compareded to 'normal computers' - because you cant't just return any thing from a function.
 
 The Arduino community offers obvoius and easy understandable code that uses heap behind the curtain. It is for newbies and the future of  huge ram sizes.
+
 C++ is a monster! You can build thing that looks nice and obvious - conseptual sensible, but with a cost behind the curtain. The monster aspect lies in  that you can still avoid it and write effective assembly - C++, and C as assembly. 
 
-The ConsoleShell and ConsoleShellDeploy uses c++20 features - on a desktop that is possible.   
+The ConsoleShell and ConsoleShellDeploy uses c++20 features - on a desktop that is possible.
+
+
 
 
