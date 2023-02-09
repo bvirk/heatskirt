@@ -38,7 +38,7 @@ All executing of written source happens in a single thread - besides what exists
 
 ## c++ redundance
 
-When a c++ project grows, it redundance begins to bother - every method in both header file and where declaration occures!. In a project where two programs - the terminal and AVR program is connected, is not human to be the controller of cohesion. A prebuild program, named consoleshelldeploy, is executed before compiling for both AVR and the terminal.
+When a c++ project grows, it redundance begins to be bothersome - every method in both header file and where declaration occures, and, for some parts, in sync for both terminal and AVR program. The increasing dialog with the compiler, which the role of being the human controller of cohesion raises, becomes boring and silly time consuming. A prebuild program, named consoleshelldeploy, is executed before compiling for both AVR and the terminal.
 
 
 ## Style
