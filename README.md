@@ -1,5 +1,5 @@
 # heatskirt hardware
-Combined pro miro (ATMEGA32U4) app, terminal program and prebuild c++ files deployment.
+Combined pro miro (ATMEGA32U4) app, terminal program and prebuild C++ files deployment.
 
 and
 
@@ -14,7 +14,7 @@ The beauty that gots the job af controlling this, is a 8 Mhtz ATMEGA32U4 in its 
 
 ![promicro](https://github.com/bvirk/heatskirt/blob/main/img/promicro.png)
 
-Besides USB, the sensors is a DHT22 humidity and temperature sensor and a NTC resistor and a SSD1306 OLED display. The power supply delivers 180ma at 5v. The separation to high voltage can be seen where removed copper makes the veroboard is shine lighter. The white brick that is sticking out under the BT138 triac is a moc3041 zero crossing detect optocoupler.
+Besides USB, the sensors is a DHT22 humidity and temperature sensor, a NTC resistor and a SSD1306 OLED display. The power supply delivers 180ma at 5v. The separation to high voltage can be seen where removed copper makes the veroboard shine lighter. The white brick that is sticking out under the BT138 triac is a moc3041 zero crossing detect optocoupler.
 
 # heatskirt software
 
@@ -53,7 +53,7 @@ The Arduino community offers obvoius and easy understandable code that uses heap
 
 C++ is a monster! You can build thing that looks nice and obvious - conseptual sensible, but with a cost behind the curtain. The monster aspect lies in  that you can still avoid it and write effective assembly - C++, and C as assembly. 
 
-The ConsoleShell and ConsoleShellDeploy uses c++20 features - on a desktop that is possible.
+The ConsoleShell and ConsoleShellDeploy uses C++20 features - on a desktop that is possible.
 
 
 
