@@ -14,7 +14,7 @@ The beauty that gots the job af controlling this, is a 8 Mhtz ATMEGA32U4 in its 
 
 ![promicro](https://github.com/bvirk/heatskirt/blob/main/img/promicro.png)
 
-Besides USB, the sensors is a DHT22 humidity and temperature sensor and a NTC resistor and a SSD1306 OLED display. The power supply delivers 180ma at 5v. The separation to high voltage can be seen where the veroboard is lighter. The white brick that is sticking out under the BT138 triac is a moc3041 zero crossing detect optocoupler.
+Besides USB, the sensors is a DHT22 humidity and temperature sensor and a NTC resistor and a SSD1306 OLED display. The power supply delivers 180ma at 5v. The separation to high voltage can be seen where removed copper makes the veroboard is shine lighter. The white brick that is sticking out under the BT138 triac is a moc3041 zero crossing detect optocoupler.
 
 # heatskirt software
 
