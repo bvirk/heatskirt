@@ -1,10 +1,13 @@
 #include <Arduino.h>
+#define __ASSERT_USE_STDERR
+#include <assert.h>
 #include <Sendf.h>
 #include <EETimer.h>
 #include <RiExec.h>
 #include <TaskRunner.h>
 #include <SSD1306.h>
 #include <DHT22.h>
+
 
 extern EETimer& eeTimer;
 extern RiExec cmds;
@@ -29,11 +32,6 @@ void setup() {
  
  Serial.begin(115200);
 
-  /* the program*/
-  if (Serial.available()) {
-    sendf("promicro starting");
-    sln(eeTimer.ctime());
-  }
   
   cmds.loop();
 
@@ -66,4 +64,11 @@ void loop() {
   
   digitalWrite(PINFLASHLED,!digitalRead(PINFLASHLED));
 		delay(100);
+}
+
+void __assert(const char *__func, const char *__file, int __lineno, const char *__sexp) {
+  char *ls = __file+strlen(__file);
+  while (*(ls-1) != '/' && ls > __file)
+    ls--;
+ 	eeTimer.setError(ls,__lineno);
 }

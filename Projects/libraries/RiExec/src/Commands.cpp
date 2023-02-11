@@ -344,11 +344,11 @@ uint8_t toogledebug(uint8_t argc, char *argv[]) {
  * @details plays a tone\n
  */
 uint8_t tone(uint8_t argc, char *argv[]) {
-	if (argc > 1) {
-		uint16_t frek = atoi(argv[0]);
-		uint16_t dur = atoi(argv[1]);
-		::tone(8,frek,dur);
-	}
+	//if (argc > 1) {
+	//	uint16_t frek = atoi(argv[0]);
+	//	uint16_t dur = atoi(argv[1]);
+	//	::tone(8,frek,dur);
+	//}
 	assert(1==2);
 	return 0;
 }
