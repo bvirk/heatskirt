@@ -87,24 +87,16 @@ bool TaskRunner::hasButtonPress() {
 }
 
 bool TaskRunner::lastPressOf(Button b) {
-    uint16_t butbits /* xxxx */ = 
-      (lastPressed & 0x40) >> 3 
-    | (lastPressed & 0x04)
-    | (lastPressed & 0x08) >> 2
-    | (lastPressed & 0x02) >> 1;
-    if (static_cast<uint8_t>(b) == butbits) {
+    if (static_cast<uint8_t>(b) == lastPressed) {
         lastPressed=0;
         return true;
     }
     return false;
 }
 
+   
 uint8_t TaskRunner::lastPress() {
-    uint16_t butbits /* xxxx */ = 
-      (lastPressed & 0x40) >> 3 
-    | (lastPressed & 0x04)
-    | (lastPressed & 0x08) >> 2
-    | (lastPressed & 0x02) >> 1;
+    uint8_t butbits = lastPressed;
     lastPressed=0;
     return butbits;
 }
@@ -118,7 +110,12 @@ void TaskRunner::timedSnippets() {
         const uint8_t port = 2;
         
         uint8_t readAll =(*portInputRegister(port) & 0x4e)^0x4e;
-        //sendf("%02x",readAll);
+		readAll =  // rearrange bit to buttonrow 
+    		  (readAll & 0x40) >> 3 
+    		| (readAll & 0x04)
+    		| (readAll & 0x08) >> 2
+    		| (readAll & 0x02) >> 1;
+
         if (previous != readAll)
             previous = readAll;
         else { 
@@ -151,6 +148,7 @@ void TaskRunner::timedSnippets() {
         if (lastPressOf(Button::K1)) {
             viewMenu();
             oled.showLines(selLines,topline,invline);
+            curTime = millis();
         }
     }
     
@@ -158,9 +156,8 @@ void TaskRunner::timedSnippets() {
     
     repeatForOledView(MENU,200);
         if (lastPressed) {
-            //sendf("in select");
             switch(lastPress()) {
-                case 4:
+                case BUTINT(K2):
                     {
                         invline++;
                         if (invline == arraySize(selLines)) {
@@ -170,9 +167,10 @@ void TaskRunner::timedSnippets() {
                         if (topline+3 < invline)
                             topline++;
                         oled.showLines(selLines,topline,invline);
+                        curTime = millis();
                     }
                     break;
-                case 2:
+                case BUTINT(K3):
                     {
                         invline--;
                         if (invline == 0xff) {
@@ -182,10 +180,11 @@ void TaskRunner::timedSnippets() {
                         if (topline > invline)
                             topline--;
                         oled.showLines(selLines,topline,invline);
+                        curTime = millis();
                     }
                     break;
             
-                case 1:
+                case BUTINT(K4):
                     switch(invline) {
                         case OVINT(CLOCK):
                             viewClock();
@@ -230,6 +229,7 @@ void TaskRunner::timedSnippets() {
         }
         itoa(tempLevel,commonbuf,10);
         oled.puts(commonbuf,0,4,4);
+        curTime = millis();
 
     }
   
@@ -245,7 +245,7 @@ void TaskRunner::timedSnippets() {
         }
         itoa(humLevel,commonbuf,10);
         oled.puts(commonbuf,0,4,4);
-        
+        curTime = millis();
     }
         
     
@@ -316,7 +316,7 @@ void TaskRunner::timedSnippets() {
     #endif  // DHT_H
     #ifdef Thermistor_h
             repeatFor(ntcfortriac,10000);
-                float temp = avarageNccTemp();
+                float temp = avarageNtcTemp();
                 if (temp + 0.5 < tempLevel) 
                     tempToLow = true;
                 if (temp -0.5 > tempLevel)
@@ -325,7 +325,7 @@ void TaskRunner::timedSnippets() {
             }
             
             repeatForOledView(NTCTEMP,500);
-                showtemp(avarageNccTemp(),"ntc-temp");
+                showtemp(avarageNtcTemp(),"ntc-temp");
                 curTime = millis();
             }
 
@@ -432,13 +432,11 @@ int16_t TaskRunner::avarageNccSample() {
     return sum >> 2;
 }
 
-float TaskRunner::avarageNccTemp() {
+float TaskRunner::avarageNtcTemp() {
     uint16_t sa = avarageNccSample(); 
-    return sa >= 630 
-        ? 15.0
-        :  sa <= 420 
-            ? 35.0
-            : 15.345+(630 - sa)/11.1;
+    return sa >= 800 
+        ? 0.0
+        : 15.345+(630 - sa)/11.1;
 }
 
 

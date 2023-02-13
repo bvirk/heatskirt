@@ -34,7 +34,7 @@ class TaskRunner {
     uint8_t tempLevel;
     uint8_t humLevel;
     bool humToHigh;   // dht22 sense humidity higher than humLevel
-    bool tempToLow;   // ntc sense temperature below tempLevelæ
+    bool tempToLow;   // ntc sense temperature below tempLevel
 
     
     
@@ -57,7 +57,7 @@ class TaskRunner {
 
     int16_t avarageNccSample();
     void showtemp(float temp, const char* head);
-    float avarageNccTemp();
+    float avarageNtcTemp();
 
 public:
     TaskRunner();
