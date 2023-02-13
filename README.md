@@ -254,9 +254,9 @@ and the above snippet is reduced to
 void TaskRunner::timedSnippets() {
 	int32_t curTime = millis();
 	
-	repeatFor(flashLed,2000);  // {  
-        digitalWrite(PINFLASHLED,!digitalRead(PINFLASHLED));
-        //curTime = millis();
+	repeatFor(flashLed,2000);
+            digitalWrite(PINFLASHLED,!digitalRead(PINFLASHLED));
+            //curTime = millis();
 	} // NOTICE THIS CURLY - github.com nicefy fenced blocks - above two lines is indented
 	...
 }
