@@ -255,7 +255,7 @@ void TaskRunner::timedSnippets() {
 	int32_t curTime = millis();
 	
 	repeatFor(flashLed,2000);    
-        digitalWrite(PINFLASHLED,!digitalRead(PINFLASHLED));
+         digitalWrite(PINFLASHLED,!digitalRead(PINFLASHLED));
         //curTime = millis();
 	} // NOTICE THIS CURLY
 	...
