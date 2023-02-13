@@ -43,4 +43,8 @@ consoleshellDeploy lifts off some boilerplate coding with repspect to C++ projec
 ## The AVR program
 
 #### circuit
+![circuit](https://github.com/bvirk/heatskirt/blob/main/img/heatskirtCircuit.jpg)
+
+#### pins used in source
+
 
