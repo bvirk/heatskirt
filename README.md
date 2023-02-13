@@ -257,7 +257,7 @@ void TaskRunner::timedSnippets() {
 	repeatFor(flashLed,2000);
             digitalWrite(PINFLASHLED,!digitalRead(PINFLASHLED));
             //curTime = millis();
-	} // NOTICE THIS CURLY - github.com nicefy fenced blocks - above two lines is indented
+	} // NOTICE THIS CURLY - its matching { is inside the macro 
 	...
 }
 ```
@@ -285,22 +285,22 @@ void TaskRunner::timedSnippets() {
 	...
 	
 	repeatFor(debounce,50);
-        const uint8_t port = 2;
-        
-        uint8_t readAll =(*portInputRegister(port) & 0x4e)^0x4e;
-		readAll =  // rearrange bit to buttonrow 
-    		  (readAll & 0x40) >> 3 
-    		| (readAll & 0x04)
-    		| (readAll & 0x08) >> 2
-    		| (readAll & 0x02) >> 1;
-        if (previous != readAll)
-            previous = readAll;
-        else { 
-            confirmed=previous;
-            if (confirmed)
-                lastPressed = confirmed;
-        }        
-    //    curTime = millis();
+            const uint8_t port = 2;
+            
+            uint8_t readAll =(*portInputRegister(port) & 0x4e)^0x4e;
+            readAll =  // rearrange bit to buttonrow 
+                (readAll & 0x40) >> 3 
+                | (readAll & 0x04)
+                | (readAll & 0x08) >> 2
+                | (readAll & 0x02) >> 1;
+            if (previous != readAll)
+                previous = readAll;
+            else { 
+                confirmed=previous;
+                if (confirmed)
+                    lastPressed = confirmed;
+            }        
+            // curTime = millis();
     }
 	...
 }
@@ -368,9 +368,9 @@ Is the clock updated every minute - however not at second 0 for the sake of sour
 void TaskRunner::timedSnippets() {
 	...
 	repeatForOledView(CLOCK,60000);
-		oled.fill();
-		oled.puts(eeTimer.clocktime(),0,3,4);
-		curTime = millis();
+            oled.fill();
+            oled.puts(eeTimer.clocktime(),0,3,4);
+            curTime = millis();
 	}
 	...
 }
@@ -420,10 +420,10 @@ Regardless of what oledView is and thus the display shows, a menu must be able t
 void TaskRunner::timedSnippets() {
 	...
     repeatFor(clickView,200);
-        if (lastPressOf(Button::K1)) {
-            viewMenu();
-            oled.showLines(selLines,topline,invline);
-        }
+            if (lastPressOf(Button::K1)) {
+                viewMenu();
+                oled.showLines(selLines,topline,invline);
+            }
     }
 	...
 }
@@ -436,65 +436,65 @@ Key presses other than k1 are not 'reset from lastPressed' - therefore they are 
 void TaskRunner::timedSnippets() {
 	...
 	repeatForOledView(MENU,200);
-        if (lastPressed) {
-            switch(lastPress()) {
-                case BUTINT(K2):
-                    {
-                        invline++;
-                        if (invline == arraySize(selLines)) {
-                            invline = 0;
-                            topline= 0;
+            if (lastPressed) {
+                switch(lastPress()) {
+                    case BUTINT(K2):
+                        {
+                            invline++;
+                            if (invline == arraySize(selLines)) {
+                                invline = 0;
+                                topline= 0;
+                            }
+                            if (topline+3 < invline)
+                                topline++;
+                            oled.showLines(selLines,topline,invline);
                         }
-                        if (topline+3 < invline)
-                            topline++;
-                        oled.showLines(selLines,topline,invline);
-                    }
-                    break;
-                case BUTINT(K3):
-                    {
-                        invline--;
-                        if (invline == 0xff) {
-                            invline = arraySize(selLines)-1;
-                            topline= invline-3;
+                        break;
+                    case BUTINT(K3):
+                        {
+                            invline--;
+                            if (invline == 0xff) {
+                                invline = arraySize(selLines)-1;
+                                topline= invline-3;
+                            }
+                            if (topline > invline)
+                                topline--;
+                            oled.showLines(selLines,topline,invline);
                         }
-                        if (topline > invline)
-                            topline--;
-                        oled.showLines(selLines,topline,invline);
-                    }
-                    break;
-            
-                case BUTINT(K4):
-                    switch(invline) {
-                        case OVINT(CLOCK):
-                            viewClock();
-                            break;
-                        case OVINT(DHTTEMP):
-                            viewDHTTemp();
-                            break;
-                        case OVINT(HUM):
-                            viewHum();
-                            break;
-                        case OVINT(NTCTEMP):
-                            viewNTCTemp();
-                            break;
-                        case OVINT(TEMPLEVEL):
-                            viewTempLevel();
-                            break;
-                        case OVINT(HUMLEVEL):
-                            viewHumLevel();
-                            break;
-                        case OVINT(REST):
-                            viewRest();
-                            break;
-                        case OVINT(SAMPLE):
-                            viewSample();
-                            break;
-                    }
-                    break;
-                    
-            }
-        } // endif pressed
-    }
+                        break;
+                
+                    case BUTINT(K4):
+                        switch(invline) {
+                            case OVINT(CLOCK):
+                                viewClock();
+                                break;
+                            case OVINT(DHTTEMP):
+                                viewDHTTemp();
+                                break;
+                            case OVINT(HUM):
+                                viewHum();
+                                break;
+                            case OVINT(NTCTEMP):
+                                viewNTCTemp();
+                                break;
+                            case OVINT(TEMPLEVEL):
+                                viewTempLevel();
+                                break;
+                            case OVINT(HUMLEVEL):
+                                viewHumLevel();
+                                break;
+                            case OVINT(REST):
+                                viewRest();
+                                break;
+                            case OVINT(SAMPLE):
+                                viewSample();
+                                break;
+                        }
+                        break;
+                        
+                }
+            } // endif pressed
+    } // end repeatForOledView
 	...
 }
 ```
@@ -525,12 +525,12 @@ If just one of humToHigh or tempToLow is true, then the triac relay is turned on
 void TaskRunner::timedSnippets() {
 	...
     repeatFor(triac,200);
-        uint8_t curStat = digitalRead(PINTRIAC);
-        uint8_t newStat = tempToLow || humToHigh ? 0 : 1;
-        if (curStat != newStat) {
-            digitalWrite(PINTRIAC,newStat);
-            tone(PINTONE,2500-500*newStat,150);
-        }
+            uint8_t curStat = digitalRead(PINTRIAC);
+            uint8_t newStat = tempToLow || humToHigh ? 0 : 1;
+            if (curStat != newStat) {
+                digitalWrite(PINTRIAC,newStat);
+                tone(PINTONE,2500-500*newStat,150);
+            }
     }    
 	...
 }
@@ -543,27 +543,27 @@ tempToLow and humToHigh relate levels with a hysteresis of 1 degree or 1 procent
 void TaskRunner::timedSnippets() {
 	...
 	repeatFor(ntcfortriac,10000);
-		float temp = avarageNtcTemp();
-		if (temp + 0.5 < tempLevel) 
-			tempToLow = true;
-		if (temp -0.5 > tempLevel)
-			tempToLow = false;
+            float temp = avarageNtcTemp();
+            if (temp + 0.5 < tempLevel) 
+                tempToLow = true;
+            if (temp -0.5 > tempLevel)
+                tempToLow = false;
     }
 	...
 
 	repeatFor(readDHT22sensor,10000);
-		float read = dht.readTemperature();
-		if (!isnanf(read))
-			dht22Temp=read;    
-		read = dht.readHumidity();
-		if (!isnanf(read))
-			dht22Hum=read;
-		
-		// for triacOnByHum        
-		if (dht22Hum > (float)humLevel+0.5) 
-			humToHigh = true;
-		if (dht22Hum <(float)humLevel-0.5)
-			humToHigh = false;
+            float read = dht.readTemperature();
+            if (!isnanf(read))
+                dht22Temp=read;    
+            read = dht.readHumidity();
+            if (!isnanf(read))
+                dht22Hum=read;
+            
+            // for triacOnByHum        
+            if (dht22Hum > (float)humLevel+0.5) 
+                humToHigh = true;
+            if (dht22Hum <(float)humLevel-0.5)
+                humToHigh = false;
 	}
 	...
 }
@@ -575,33 +575,33 @@ Levels can be set with the up/down buttons
 void TaskRunner::timedSnippets() {
 	...
 	repeatForOledView(TEMPLEVEL,200);
-        if (lastPressed) {
-            switch(lastPress()) {
-                case BUTINT(K2):
-                    tempLevel++;
-                    break;
-                case BUTINT(K3):
-                    tempLevel--;
+            if (lastPressed) {
+                switch(lastPress()) {
+                    case BUTINT(K2):
+                        tempLevel++;
+                        break;
+                    case BUTINT(K3):
+                        tempLevel--;
+                }
             }
-        }
-        itoa(tempLevel,commonbuf,10);
-        oled.puts(commonbuf,0,4,4);
-		curTime = millis();
+            itoa(tempLevel,commonbuf,10);
+            oled.puts(commonbuf,0,4,4);
+            curTime = millis();
     }
 	
     repeatForOledView(HUMLEVEL,200);
-        if (lastPressed) {
-            switch(lastPress()) {
-                case BUTINT(K2):
-                    humLevel++;
-                    break;
-                case BUTINT(K3):
-                    humLevel--;
+            if (lastPressed) {
+                switch(lastPress()) {
+                    case BUTINT(K2):
+                        humLevel++;
+                        break;
+                    case BUTINT(K3):
+                        humLevel--;
+                }
             }
-        }
-        itoa(humLevel,commonbuf,10);
-        oled.puts(commonbuf,0,4,4);
-        curTime = millis();
+            itoa(humLevel,commonbuf,10);
+            oled.puts(commonbuf,0,4,4);
+            curTime = millis();
     }
     ...
 }
