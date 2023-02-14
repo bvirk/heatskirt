@@ -95,7 +95,7 @@ millis(), tone(...) and Serial.available() is non blocking - in other words, som
 
 [uint32_t millis()](https://www.arduino.cc/reference/en/language/functions/time/millis/) gives, as indicated, milliseconds after reset, and it runs fairly accurately if you can avoid routines that disables interrupts.
 
-So precise that you thus have, not just a clock - but a time. The only thing you need is a uint32_t offset i seconds, to a fixed point of time - epoch y2k, 2000-1-1 00:00:00 is an obvious choice.
+So precise is, the crystal behind the timercount behind millis(), that you have, not just a clock - but a time. The only thing you need is a uint32_t offset in seconds, to a fixed point of time - epoch y2k, 2000-1-1 00:00:00 is an obvious choice.
 
 The AVR must of course retrieve this current time from the outside, in order to save an offset, named secSReset. This is why a terminal program that can do more than pass on entries is a must.
 
